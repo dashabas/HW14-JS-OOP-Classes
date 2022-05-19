@@ -2,32 +2,26 @@ class TodoList {
     constructor(el) {
         this.todos = [];
         this.el = el;
-        this.input = document.querySelector('#todo_input');
+        this.list = el.children[1];
+        this.input = el.children[0].children[1];
 
         this.el.addEventListener('click', (event) => {
             let action = event.target.dataset.action;
-            let todoId = event.target.closest('li').dataset.id;
+            let item = event.target;
 
             switch (action) {
                 case 'set-status':
-                    this.changeStatus(todoId);
+                    this.changeStatus(item.closest('li').dataset.id);
                     break;
                 case 'delete-task':
-                    this.removeTodo(todoId);
+                    this.removeTodo(item.closest('li').dataset.id);
                     break;
                 case 'moveUp':
-                    this.moveUp(todoId);
+                    this.moveUp(item.closest('li').dataset.id);
                     break;
                 case 'moveDown':
-                    this.moveDown(todoId);
+                    this.moveDown(item.closest('li').dataset.id);
                     break;
-            }
-        })
-
-        document.querySelector('.todoForm').addEventListener('click', (event) => {
-            let action = event.target.dataset.action;
-
-            switch (action) {
                 case 'create-task':
                     if (this.input.value !== '') {
                         this.addTodo(new Task(this.input.value, false));
@@ -72,7 +66,7 @@ class TodoList {
             let status = !el.status ? 'in-progress' : 'done';
             list += `<li class="${status}" data-id="${el.id}">${el.value}<button data-action="set-status">Change status</button><button data-action="delete-task">Delete</button><button data-action="moveUp">moveUp</button><button data-action="moveDown">moveDown</button></li>`;
         }
-        this.el.innerHTML = list;
+        this.list.innerHTML = list;
     }
 
     findTasks(text) {
@@ -109,7 +103,7 @@ class Task {
     }
 }
 
-let list = document.getElementById('list');
+let list = document.getElementById('todo-List');
 
 let todo1 = new TodoList(list);
 todo1.addTodo(new Task('9345', true));
@@ -118,3 +112,12 @@ todo1.addTodo(new Task('send letter', false));
 todo1.addTodo(new Task('do homework', false));
 todo1.addTodo(new Task('hiking', true));
 console.log(todo1.getTodos());
+
+
+let list2 = document.getElementById('todo-List2');
+
+let todo2 = new TodoList(list2);
+todo2.addTodo(new Task('sport', false));
+todo2.addTodo(new Task('programming', false));
+todo2.addTodo(new Task('send package', false));
+console.log(todo2.getTodos());
