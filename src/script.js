@@ -70,8 +70,7 @@ class TodoList {
     }
 
     findTasks(text) {
-        this.filteredTodos = this.todos.filter((el) => el.value.includes(text))
-        this.render(this.filteredTodos);
+        this.render(this.todos.filter((el) => el.value.includes(text)));
     }
 
     moveUp(id) {
