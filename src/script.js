@@ -58,7 +58,6 @@ class TodoList {
 
     render(todos = []) {
         let list = '';
-        // todos = this.todos;
         for (let el of todos) {
             if (!el) {
                 return;
